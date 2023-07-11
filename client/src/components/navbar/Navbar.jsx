@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
   return (
     <div className="navbar">
       <div className="navContainer">
@@ -12,10 +12,23 @@ const Navbar = () => {
           <span className="logo">Booking</span>
         </Link>
         {user ? (
-          user.username
+          <div className="userInfos">
+            <span>{user.username}</span>
+            <button
+              onClick={() => dispatch({ type: "LOGOUT" })}
+              className="navButton"
+            >
+              Logout
+            </button>
+          </div>
         ) : (
           <div className="navItems">
-            <button className="navButton">Register</button>
+            <Link
+              to="/register"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <button className="navButton">Register</button>
+            </Link>
             <Link
               to="/login"
               style={{ color: "inherit", textDecoration: "none" }}
